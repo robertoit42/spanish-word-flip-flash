@@ -33,7 +33,10 @@ pipeline {
                     }
                     steps {
                         ansiColor('xterm') {
-                            sh 'npx vitest run --reporter=verbose'
+                            // Ejecuta el script definido en package.json
+                            sh 'npm run test:unit'
+                            // Publica los resultados en Jenkins
+                            junit 'vitest-report.xml'
                         }
                     }
                 }
