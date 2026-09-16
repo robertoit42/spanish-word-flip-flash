@@ -1,14 +1,16 @@
 version: '3'
+
 services:
   jenkins:
     image: jenkins/jenkins:lts
     container_name: jenkins
+    user: root
     ports:
       - "8080:8080"
       - "50000:50000"
     volumes:
       - jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock   # acceso al Docker del host
-      - /usr/bin/docker:/usr/bin/docker             # binario docker dentro del contenedor
+     
 volumes:
   jenkins_home:

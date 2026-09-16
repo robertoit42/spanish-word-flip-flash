@@ -1,11 +1,13 @@
 pipeline {
     agent any
-    
-    options {
-        ansiColor('xterm')
-    }
 
     stages {
+        stage('checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/robertoit42/spanish-word-flip-flash.git'
+            }
+        }
+
         stage('build') {
             agent {
                 docker {
@@ -13,8 +15,10 @@ pipeline {
                 }
             }
             steps {
-                sh 'npm ci'
-                sh 'npm run build'
+                ansiColor('xterm') {
+                    sh 'npm ci'
+                    sh 'npm run build'
+                }
             }
         }
 
@@ -28,8 +32,9 @@ pipeline {
                         }
                     }
                     steps {
-                        // Unit tests with Vitest
-                        sh 'npx vitest run --reporter=verbose'
+                        ansiColor('xterm') {
+                            sh 'npx vitest run --reporter=verbose'
+                        }
                     }
                 }
             }
@@ -42,8 +47,9 @@ pipeline {
                 }
             }
             steps {
-                // Mock deployment which does nothing
-                echo 'Mock deployment was successful!'
+                ansiColor('xterm') {
+                    echo 'Mock deployment was successful!'
+                }
             }
         }
     }
