@@ -33,8 +33,8 @@ pipeline {
                     }
                     steps {
                         ansiColor('xterm') {
-                            // Ejecuta el script definido en package.json
-                            sh 'npm run test:unit'
+                            // Ejecuta Vitest con npx para evitar "not found"
+                            sh 'npx vitest run --reporter=junit --outputFile=vitest-report.xml'
                             // Publica los resultados en Jenkins
                             junit 'vitest-report.xml'
                         }
